@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    <div class="container">
+        <h1>Payment Successful!</h1>
+        <p>Thank you, {{ order.user.get_full_name }}! Your payment has been successfully processed.</p>
+
+        <h2>Order Details</h2>
+        <ul>
+            <li><strong>Order Number:</strong> {{ order.order_number }}</li>
+            <li><strong>Total Paid:</strong> BDT {{ order.payment.amount_paid }}</li>
+            <li><strong>Payment Method:</strong> SSLcommerz</li>
+            <li><strong>Status:</strong> {{ order.get_status_display }}</li>
+        </ul>
+
+        <p>Your order is being processed. You will receive a confirmation email shortly.</p>
+
+         <a href="{% url 'store' %}" class="btn">Continue Shopping</a> 
+    </div>
+{% endblock %}
+

@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<!-- ========================= SECTION MAIN ========================= -->
+<section class="section-intro padding-y-sm">
+<div class="container">
+
+	{% for search_product in search_products  %}
+
+	{% if forloop.first %}
+	<header class="section-heading">
+		<a href="{% url 'store' %}" class="btn btn-outline-primary float-right">See all</a>
+		<h3 class="section-title">Search results for "{{ search_product }}"</h3>
+	</header><!-- sect-heading -->
+	{% endif %}
+
+	{% endfor %}
+
+
+
+<div class="intro-banner-wrap">
+	<img src="{% static 'images/banners/banner.jpg' %}" class="img-fluid rounded">
+</div>
+
+</div> <!-- container //  -->
+</section>
+<!-- ========================= SECTION MAIN END// ========================= -->
+
+<!-- ========================= SECTION  ========================= -->
+<section class="section-name padding-y-sm">
+<div class="container">
+
+<header class="section-heading">
+	<a href="{% url 'store' %}" class="btn btn-outline-primary float-right">See all</a>
+	<h3 class="section-title">Popular products</h3>
+</header><!-- sect-heading -->
+
+	
+<div class="row">
+	{% for product in products %}
+	<div class="col-md-3 mb-4">
+		<div class="card shadow-sm border rounded h-100">
+			<a href="{{ product.get_url }}" class="img-wrap">
+				<img src="{{ product.images.url }}" class="card-img-top img-fluid" alt="{{ product.product_name }}">
+			</a>
+			<div class="card-body text-center">
+				<h5 class="card-title mb-2">
+					<a href="{{ product.get_url }}" class="text-dark text-decoration-none">{{ product.product_name }}</a>
+				</h5>
+				<!-- <p class="text-muted font-weight-light mb-3">{{ product.short_description|default:"No description available"
+						}}</p> -->
+				<h6 class="text-primary mb-2">${{ product.price }}</h6>
+				<a href="{{ product.get_url }}" class="btn btn-outline-primary btn-sm">View Details</a>
+			</div>
+		</div>
+	</div>
+	{% endfor %}
+</div> <!-- row.// -->
+
+</div><!-- container // -->
+</section>
+<!-- ========================= SECTION  END// ========================= -->
+
+
+
+
+
+
+</body>
+</html>
+{% endblock %}
