@@ -1,98 +1,132 @@
 {% load static %}
-<header class="section-header">
-<nav class="navbar p-md-0 navbar-expand-sm navbar-light border-bottom">
-<div class="container">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTop4" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarTop4">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item dropdown">
-            <a href="#" class="nav-link">   English </a>
-                
-            </li>
-            <li class="nav-item dropdown">
-                <a href="#" class="nav-link"> USD </a>
-            </li>
-        </ul>
-        <ul class="navbar-nav">
-            <li><a href="mailto:example@example.com" class="nav-link"> <i class="fa fa-envelope"></i> Email </a></li>
-            <li><a href="tel:01764928732" class="nav-link"> <i class="fa fa-phone"></i> Call us </a></li>
-        </ul> <!-- list-inline //  -->
-    </div> <!-- navbar-collapse .// -->
-    </div> <!-- container //  -->
-    </nav>
-    
-    <section class="header-main border-bottom">
+<!-- Header section -->
+<header>
+    <!-- Top navigation bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
         <div class="container">
-    <div class="row align-items-center">
-        <div class="col-lg-2 col-md-3 col-6">
-            <a href="{% url 'home' %}" class="brand-wrap">
-                <img class="logo " src="{% static './images/e_com.png' %}">
-            </a> <!-- brand-wrap.// -->
-        </div>
-        <div class="col-lg col-sm col-md col-6 flex-grow-0">
-            <div class="category-wrap dropdown d-inline-block float-right">
-                <button type="button" class="btn btn-primary dropdown-toggle ms-20" data-toggle="dropdown"> 
-                    <i class="fa fa-bars"></i> All category 
-                </button>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="{% url 'store' %}">All Products</a>
-                    {% for category in links %}
-                        <a class="dropdown-item" href="{{ category.get_url }}">{{ category.category_name }}</a>
-                    {% endfor %}
-                </div>
-            </div>  <!-- category-wrap.// -->
-        </div> <!-- col.// -->
-        <a href="{% url 'store' %}" class="btn btn-outline-primary">Store</a>
-        <div class="col-lg  col-md-6 col-sm-12 col">
-            <form action="{% url 'search' %}" class="search" method="GET">
-                <div class="input-group w-100">
-                    <input type="text" class="form-control" style="width:60%;" placeholder="Search" name="keyword">
-                    
-                    <div class="input-group-append">
-                        <button class="btn btn-primary" type="submit">
-                            <i class="fa fa-search"></i>
-                        </button>
-                    </div>
-                </div>
-            </form> <!-- search-wrap .end// -->
-            <!-- your_template.html -->
-        
-            <div class="search-results">
-            </div>
+            <!-- Logo -->
+            <a href="{% url 'home' %}" class="navbar-brand">
+                <img src="{% static './images/e_com.png' %}" alt="Logo" class="logo" height="40">
+            </a>
 
-        </div> <!-- col.// -->
-        <div class="col-lg-3 col-sm-6 col-8 order-2 order-lg-3">
-                    <div class="d-flex justify-content-end mb-3 mb-lg-0">
+            <!-- Mobile menu button -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Main navigation -->
+            <div class="collapse navbar-collapse" id="mainNav">
+                <!-- Search form -->
+                <form action="{% url 'search' %}" class="form-inline mx-auto" method="GET">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search products..." name="keyword">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-primary" type="submit">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+                <!-- User account and cart -->
+                <ul class="navbar-nav ml-auto align-items-center">
+                    <li class="nav-item dropdown">
                         {% if user.id is none %}
-                        <div class="widget-header">
-                            <small class="title text-muted">Welcome guest!</small>
-                            <div> 
-                                <a href="{% url 'login' %}">Sign in</a> <span class="dark-transp"> | </span>
-                                <a href="{% url 'register' %}"> Register</a>
+                            <div class="d-flex flex-column align-items-center">
+                                <span class="nav-link p-0 text-gray-light font-weight-light fs-1"> Welcome Guest !</span>
+                                <a class="nav-link p-0 text-black" style="text-decoration: none;" href="{% url 'login' %}">Sign in / Register</a>
                             </div>
-                        </div>
                         {% else %}
-                        <div class="widget-header">
-                            <small class="title text-muted">Welcome {{ user.first_name }} !</small>
-                            <div> 
-                                <a href="{% url 'dashboard' %}"> Dashbord </a> <span class="dark-transp"> | </span>
-                                <a href="{% url 'logout' %}"> Logut</a>
+                            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
+                                <i class="fa fa-user-circle"></i> {{ user.first_name }}
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" href="{% url 'dashboard' %}">Dashboard</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
                             </div>
-                        </div>
                         {% endif %}
-                        <a href="{% url 'cart' %}" class="widget-header pl-3 ml-3">
-                            <div class="icon icon-sm rounded-circle border"><i class="fa fa-shopping-cart"></i></div>
-                            <span class="badge badge-pill badge-danger notify">{{ cart_count }}</span>
+                    </li>
+                    <li class="nav-item ml-2">
+                        <a href="{% url 'cart' %}" class="nav-link position-relative">
+                            <i class="fa fa-shopping-cart fa-lg"></i>
+                            {% if cart_count > 0 %}
+                                <span class="badge badge-pill badge-danger position-absolute" style="top: 0; right: 0;">
+                                    {{ cart_count }}
+                                </span>
+                            {% endif %}
                         </a>
-                    </div> <!-- widgets-wrap.// -->
-                </div> <!-- col.// -->
-    </div> <!-- row.// -->
-        </div> <!-- container.// -->
-    </section> <!-- header-main .// -->
-    
-    
-    
-    
-    </header> <!-- section-header.// -->
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Categories bar -->
+    <div class="bg-dark py-3">
+        <div class="container">
+            <div class="d-flex flex-wrap justify-content-center category-wrapper">
+                <a href="{% url 'store' %}" class="category-link">All Products</a>
+                {% for category in links %}
+                    <a href="{{ category.get_url }}" class="category-link">{{ category.category_name }}</a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .navbar {
+            padding: 1rem 0;
+        }
+        .navbar .form-inline {
+            flex-grow: 1;
+            max-width: 500px;
+        }
+        .navbar .input-group {
+            width: 100%;
+        }
+        .nav-link {
+            color: #333;
+        }
+        .badge {
+            font-size: 0.6rem;
+            padding: 0.25rem 0.5rem;
+        }
+        .btn-outline-secondary {
+            margin: 0.25rem;
+            border-color: #dee2e6;
+        }
+        .btn-outline-secondary:hover {
+            background-color: #f8f9fa;
+            border-color: #adb5bd;
+        }
+        .category-wrapper {
+            gap: 1.5rem;
+        }
+        .category-link {
+            color: #fff;
+            text-decoration: none;
+            font-size: 0.95rem;
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        .category-link:hover {
+            color: #fff;
+            background-color: rgba(255, 255, 255, 0.1);
+            text-decoration: none;
+        }
+        @media (max-width: 991.98px) {
+            .navbar .form-inline {
+                margin: 1rem 0;
+            }
+            .category-wrapper {
+                gap: 1rem;
+            }
+            .category-link {
+                font-size: 0.9rem;
+                padding: 0.2rem 0.6rem;
+            }
+        }
+    </style>
+</header>
