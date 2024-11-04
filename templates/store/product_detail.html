@@ -36,30 +36,75 @@
 		<div class="row">
 			<div class="item-option-select">
 				<h6>Choose Color</h6>
-				<div class="btn-group btn-group-sm btn-group-toggle" data-toggle="buttons">
+				<div class="color-options d-flex flex-wrap gap-2" >
 					{% for i in single_product.variation_set.colors %}
-					<label class="btn btn-light">
-						<input type="radio" name="radio_color" value="{{ i.variation_value | lower }}" required > {{ i.variation_value | capfirst }}
+					<label class="color-option">
+						<input type="radio" name="radio_color" value="{{ i.variation_value | lower }}" required>
+						<span class="color-box" style="width: fit-content; padding: 10px; background-color:orange;">
+							{{ i.variation_value | capfirst }}
+							  
+						</span>
 					</label>
 					{% endfor %}
-					
-				</div> 
+				</div>
 			</div>
 		</div> <!-- row.// -->
 		
-		<div class="row">
+		<div class="row  mt-3">
 			<div class="item-option-select">
 				<h6>Choose Size</h6>
-				<div class="btn-group btn-group-sm btn-group-toggle" data-toggle="buttons">
+				<div class="size-options d-flex flex-wrap gap-2">
 					{% for i in single_product.variation_set.sizes %}
-					<label class="btn btn-light">
-						<input type="radio" name="radio_size" value="{{ i.variation_value | lower }}" required > {{ i.variation_value | capfirst }}
+					<label class="size-option">
+						<input type="radio" name="radio_size" value="{{ i.variation_value | lower }}" required>
+						<span class="size-box" style="width: fit-content; padding: 10px; background-color: orange; color: white;">
+							{{ i.variation_value | capfirst }}
+						</span>
 					</label>
 					{% endfor %}
-					
-				</div> 
+				</div>
 			</div>
 		</div> <!-- row.// -->
+
+		<style>
+			.color-options, .size-options {
+				gap: 10px;
+			}
+			
+			.color-option input, .size-option input {
+				display: none;
+			}
+			
+			.color-box, .size-box {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				width: 60px;
+				height: 60px;
+				border: 2px solid #ddd;
+				border-radius: 4px;
+				cursor: pointer;
+				font-weight: bold;
+				transition: all 0.3s;
+			}
+			
+			.color-box {
+				color: white;
+				text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+			}
+			
+			.size-box {
+				background: #f8f9fa;
+				color: #333;
+			}
+			
+			.color-option input:checked + .color-box,
+			.size-option input:checked + .size-box {
+				border-color: #007bff;
+				box-shadow: 0 0 5px rgba(0,123,255,0.5);
+				transform: scale(1.05);
+			}
+		</style>
 		
 			<hr>
 			{% if single_product.stock <= 0 %}
