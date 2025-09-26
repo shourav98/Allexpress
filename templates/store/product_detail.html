@@ -13,7 +13,7 @@
 		<aside class="col-md-6">
 <article class="gallery-wrap"> 
 	<div class="img-big-wrap">
-		<a href="#"><img src="{{ single_product.images.url}}"></a>
+		<a href="#"><img src="{{ single_product.images.url}}" loading="lazy" decoding="async" alt="{{ single_product.product_name }}"></a>
 	</div> <!-- img-big-wrap.// -->
 	
 </article> <!-- gallery-wrap .end// -->
@@ -116,7 +116,7 @@
 	<div class="col-md-3 mb-4">
 		<div class="card shadow-sm border rounded h-100">
 			<a href="{{ product.get_url }}" class="img-wrap">
-				<img src="{{ product.images.url }}" class="card-img-top img-fluid" alt="{{ product.product_name }}">
+				<img src="{{ product.images.url }}" class="card-img-top img-fluid" loading="lazy" decoding="async" alt="{{ product.product_name }}">
 			</a>
 			<div class="card-body text-center">
 				<h5 class="card-title mb-2">
